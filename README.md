@@ -15,7 +15,7 @@
   <p align="center">
     Program your STM32Fxx Over-the-Air using ESP32
     <br />
-    <a href="https://github.com/laukik-hase/OTA_update_STM32_using_ESP32/"></a>
+****    <a href="https://github.com/laukik-hase/OTA_update_STM32_using_ESP32/"></a>
     <br />
     <a href="https://github.com/laukik-hase/OTA_update_STM32_using_ESP32/">View Code</a>
     ·
@@ -39,6 +39,7 @@
   - [Setting Up](#setting-up)
   - [Disclaimer](#disclaimer)
 - [Usage (For STM32 Blue Pill)](#usage-for-stm32-blue-pill)
+- [Compatibility](#compatibility)
 - [Troubleshooting](#troubleshooting)
 - [Contributors](#contributors)
 - [Acknowledgements and Resources](#acknowledgements-and-resources)
@@ -46,9 +47,9 @@
 
 ## About the Project
 
-The project aims at enabling firmware update of STM32Fxx series MCUs Over-the-Air using ESP32.
+The project aims at enabling firmware update of STM32Fxx and STM32Gxx series MCUs Over-the-Air using ESP32.
 
-Testing was done with ESP32-DevKitC v4 board and STM32F103C8T6 ([Blue Pill](https://www.st.com/en/microcontrollers-microprocessors/stm32f103.html)) and [STM32F072C8T6](https://www.st.com/en/microcontrollers-microprocessors/stm32f072c8.html). You can try with any other STM32Fxx MCUs and let us know how it worked out.
+Testing was done with ESP32-DevKitC v4 board and STM32F103C8T6 ([Blue Pill](https://www.st.com/en/microcontrollers-microprocessors/stm32f103.html)), [STM32F072C8T6](https://www.st.com/en/microcontrollers-microprocessors/stm32f072c8.html) and STM32G431KB ([NUCLEO-G431KB](https://www.st.com/en/evaluation-tools/nucleo-g431kb.html)). You can try with any other STM32Fxx/STM32Gxx MCUs and let us know how it worked out.
 
 ### Code
 
@@ -76,7 +77,7 @@ To run the OTA demo, you need an ESP32 dev board (e.g. ESP32-WROVER Kit) or ESP3
 
   You can also use [**CubeIDE**]((https://stackoverflow.com/questions/57017703/how-do-i-generate-a-binary-file-of-the-stm32-code)) or [**Keil**](https://www2.keil.com/stmicroelectronics-stm32) for generation of **.bin** files.
 
-  
+
 ### Setting Up
 
 1. Wire your STM32 (e.g. Blue Pill) to the ESP32 as follows:
@@ -96,16 +97,18 @@ We have assumed that the STM32 is already in boot mode before flashing the code 
 
 The program code uses only the path of the binary file to be flashed as a parameter. Thus, it can be easily integrated into any other projects as the file can be sent to ESP32 over any protocol (MQTT, HTTP Client, WebSockets).
 
+Read carefully the Boot Mode Procedure ([AN2606](https://www.st.com/content/ccc/resource/technical/document/application_note/b9/9b/16/3a/12/1e/40/0c/CD00167594.pdf/files/CD00167594.pdf/jcr:content/translations/en.CD00167594.pdf)) and the USART protocol used in Bootloader Mode ([AN3105](https://www.st.com/content/ccc/resource/technical/document/application_note/51/5f/03/1e/bd/9b/45/be/CD00264342.pdf/files/CD00264342.pdf/jcr:content/translations/en.CD00264342.pdf)) in order to deeply understand how to use this project with other STM32 microcontrollers.
+
 ## Usage (For STM32 Blue Pill)
 
-1. Make sure the BOOT0 jumper pin on the board is set to 1 (programming mode) while uploading the code. Once the code is flashed this pin can be changed back to initial position (operating mode). This procedure with your STM32Fxx MCU varies according with your MCU version. 
-  
+1. Make sure the BOOT0 jumper pin on the board is set to 1 (programming mode) while uploading the code. Once the code is flashed this pin can be changed back to initial position (operating mode). This procedure with your STM32Fxx MCU varies according with your MCU version.
+
       Refer this [documentation](https://www.st.com/content/ccc/resource/technical/document/application_note/b9/9b/16/3a/12/1e/40/0c/CD00167594.pdf/files/CD00167594.pdf/jcr:content/translations/en.CD00167594.pdf) for help.
-  
+
   <p align="center">
     <kbd><img width="500" height="355" src="images/blue_pill_bm.jpg" border="5"></kbd>
   </p>
-  
+
 2. Open the project configuration menu (`idf.py menuconfig`) go to `Example Connection Configuration` ->
     1. WiFi SSID: WiFi network to which your PC is also connected to.
     2. WiFi Password: WiFi password
@@ -136,6 +139,25 @@ The program code uses only the path of the binary file to be flashed as a parame
 
 5. **Revert** the BOOT0 pin to its initial position and press the RESET Button on the STM32.
 6. Voila! your STM32 is now running the code you uploaded Over-the-Air!
+
+## Compatibility
+According to STM documentation, this project could be compatible with a wide range of microcontrollers, **prior to some customization**:
+- **STM32F0 Series (verified)**
+- **STM32F1 Series (verified)**
+- STM32F2 Series
+- STM32F3 Series
+- STM32F4 Series
+- STM32F7 Series
+- STM32G0 Series
+- **STM32G4 Series (verified)**
+- STM32H7 Series
+- STM32L0 Series
+- STM32L1 Series
+- STM32L4 Series
+- STM32L5 Series
+- STM32U5 Series
+- STM32WB Series
+- STM32WL Series
 
 ## Troubleshooting
 
@@ -168,7 +190,7 @@ The program code uses only the path of the binary file to be flashed as a parame
 * [HackerNews Article: Updating STM32 Over-The-Air using ESP32](https://news.ycombinator.com/item?id=23302664)
 
 * [Reddit Post: Update STM32 Over-the-Air using ESP32](https://www.reddit.com/r/esp32/comments/jx399y/update_stm32_overtheair_using_esp32/)
-  
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
